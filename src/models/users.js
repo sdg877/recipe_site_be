@@ -1,31 +1,42 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-// Define the user schema
-const userSchema = new mongoose.Schema({
-  googleId: {
-    type: String,
-    required: true,
-    unique: true
+const { Schema } = mongoose;
+const SALT_ROUNDS = 6;
+
+const userSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    email: {
+      type: String,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      required: true,
+    },
+    //update
+    password: {
+      type: String,
+      trim: true,
+      minLength: 3,
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  displayName: {
-    type: String,
-    required: true
-  },
-  // Add any additional fields you may need
+  {
+    timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        return ret;
+      },
+    },
+  }
+);
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+  return next();
 });
 
-// Define methods or statics for interacting with user data
-// For example, finding a user by Google ID
-userSchema.statics.findByGoogleId = async function(googleId) {
-  return this.findOne({ googleId });
-};
-
-// Create the User model
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+export default mongoose.model("User", userSchema);

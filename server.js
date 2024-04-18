@@ -1,48 +1,31 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const mongoose = require('mongoose');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 
-require('dotenv').config();
+import userRoutes from './src/routes/users.js';
+import './config/database.js';
+import checkToken from './config/checkToken.js';
+
 
 const app = express();
-app.use(bodyParser.json());
-app.use(cors());
+const port = process.env.PORT || 3000;
 
-// Connect to MongoDB
+app.use(cors());
+app.use(bodyParser.json());
+
 mongoose.connect(process.env.DATABASE_URL);
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use(checkToken);
+
+app.get('/', (req, res) => {
+  console.log('recipe');
+  res.sendStatus(200);
 });
 
-app.post('/user/login', async (req, res) => {
-  const now = new Date();
+app.use('/users', userRoutes);
 
-  const User = mongoose.model('User'); // Define the User model here for simplicity
-
-  try {
-    const existingUser = await User.findOne({ userEmail: req.body.userEmail });
-
-    if (!existingUser) {
-      const newUser = new User({
-        userEmail: req.body.userEmail,
-        lastLogin: now,
-        uniqueSub: req.body.uniqueSub
-      });
-      await newUser.save();
-    } else {
-      existingUser.lastLogin = now;
-      existingUser.uniqueSub = req.body.uniqueSub;
-      await existingUser.save();
-    }
-
-    res.sendStatus(200);
-  } catch (error) {
-    console.error('Error saving user:', error);
-    res.sendStatus(500);
-  }
+app.listen(port, () => {
+  console.log(`Server Listening at http://localhost:${port}`);
 });
-
-module.exports = app;
