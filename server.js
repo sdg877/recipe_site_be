@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json())
 
 mongoose.connect(process.env.DATABASE_URL);
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
 
 app.listen(port, () => {
   console.log(`Server Listening at http://localhost:${port}`);

@@ -1,16 +1,24 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/users.js';
+import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 
 export const create = async (req, res) => {
     try {
-        const user = await User.create(req.body);
-        const token = createJWT(user);
-        res.json(token);
-    } catch (err) {
-        res.status(400).json(err);
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password, // Assuming password hashing is done elsewhere
+      });
+  
+      const savedUser = await newUser.save(); // Save the new user to the database
+  
+      // Send a success response with the created user data
+      res.status(201).json(savedUser); // 201 Created status code
+    } catch (error) {
+      console.error('Error creating user:', error);
+      res.status(500).json({ message: 'Error creating user' }); // 500 Internal Server Error
     }
-}
+  };
 
 export const login = async (req, res) => {
     try {
