@@ -21,21 +21,19 @@ export const create = async (req, res) => {
   }
 };
 
-
 export const login = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) throw new Error('User not found');
-
         const match = await bcrypt.compare(req.body.password, user.password);
         if (!match) throw new Error('Invalid password');
-
-        res.json(createJWT(user));
+        const token = createJWT(user);
+        res.json({ user, token });
     } catch (error) {
-        console.error(error); 
+        console.error('Login error:', error);
         res.status(400).json({ error: 'Bad Credentials' });
     }
-}
+};
 
 export const update = async (req, res) => {
     try {
@@ -57,6 +55,5 @@ export default function createJWT(user) {
 }
 
 export const checkToken = (req, res) => {
-    console.log('req.user', req.user);
     res.json(req.exp);
   }

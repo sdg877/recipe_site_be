@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
   });
 
 
-router.post('/user/login', login);
+router.post('/login', login);
 // router.put('/:id', update);
 
 export default router;
