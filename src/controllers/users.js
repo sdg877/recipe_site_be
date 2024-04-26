@@ -3,22 +3,24 @@ import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 
 export const create = async (req, res) => {
-    try {
+  try {
       const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password, // Assuming password hashing is done elsewhere
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password, 
       });
-  
-      const savedUser = await newUser.save(); // Save the new user to the database
-  
-      // Send a success response with the created user data
-      res.status(201).json(savedUser); // 201 Created status code
-    } catch (error) {
+
+      const savedUser = await newUser.save();
+
+      const token = createJWT(savedUser);
+
+      res.status(201).json({ user: savedUser, token });
+  } catch (error) {
       console.error('Error creating user:', error);
-      res.status(500).json({ message: 'Error creating user' }); // 500 Internal Server Error
-    }
-  };
+      res.status(500).json({ message: 'Error creating user' });
+  }
+};
+
 
 export const login = async (req, res) => {
     try {
@@ -55,7 +57,6 @@ export default function createJWT(user) {
 }
 
 export const checkToken = (req, res) => {
-    // req.user will always be there for you when a token is sent
     console.log('req.user', req.user);
     res.json(req.exp);
   }
