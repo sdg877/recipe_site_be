@@ -57,3 +57,5 @@ export default function createJWT(user) {
 export const checkToken = (req, res) => {
     res.json(req.exp);
   }
+
+
