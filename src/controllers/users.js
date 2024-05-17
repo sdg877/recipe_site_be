@@ -21,6 +21,20 @@ export const create = async (req, res) => {
   }
 };
 
+export const deleteUser = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+        await User.findByIdAndDelete(userId);
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Error deleting user' });
+    }
+};
+
 export const login = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });

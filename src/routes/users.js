@@ -1,5 +1,5 @@
 import express from 'express';
-import { create, login, checkToken } from '../controllers/users.js';
+import { create, login, checkToken, deleteUser } from '../controllers/users.js';
 import ensureLoggedIn from '../../config/ensureLoggedIn.js';
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
 
 
 router.post('/login', login);
+router.delete('/deleteUser', deleteUser);
 // router.put('/:id', update);
 
 export default router;
