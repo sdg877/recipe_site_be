@@ -4,9 +4,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
-import userRoutes from './src/routes/users.js';
-import './config/database.js';
-import checkToken from './config/checkToken.js';
+import userRoutes from '../../src/routes/users.js';
+import '../../config/database.js';
+import checkToken from '../../config/checkToken.js';
 
 
 const api = express();
