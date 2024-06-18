@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "Sylvia Drake-Gill",
-  "type": "module",
+  "type": "commonjs",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
