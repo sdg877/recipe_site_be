@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Backend for recipe site",
   "homepage": "https://gourmetgallery.org",
-  "main": "server.js",
+  "main": "server.js", 
   "scripts": {
-    "start": "node server.cjs",
+    "start": "node server.js",
     "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
