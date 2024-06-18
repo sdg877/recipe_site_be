@@ -5,7 +5,7 @@
   "homepage": "https://gourmetgallery.org",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.cjs",
     "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
