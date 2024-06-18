@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "description": "Backend for recipe site",
   "homepage": "https://gourmetgallery.org",
-  "main": "server.cjs", 
+  "main": "server.mjs",
   "scripts": {
-    "start": "node server.cjs", 
-    "server": "nodemon server.cjs",
+    "start": "node server.mjs",
+    "server": "nodemon server.mjs",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "Sylvia Drake-Gill",
-  "type": "module", 
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
