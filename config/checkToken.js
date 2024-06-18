@@ -1,6 +1,23 @@
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
-export default function checkToken(req, res, next) {
+// export default function checkToken(req, res, next) {
+//   let token = req.get('Authorization') || req.query.token;
+//   if (token) {
+//     token = token.replace('Bearer ', '');
+//     jwt.verify(token, process.env.SECRET, function(err, decoded) {
+//       req.user = err ? null : decoded.user;  
+//       req.exp = err ? null : new Date(decoded.exp * 1000);  
+//       return next();
+//     });
+//   } else {
+//     req.user = null;
+//     return next();
+//   }
+// }
+
+const jwt = require('jsonwebtoken');
+
+function checkToken(req, res, next) {
   let token = req.get('Authorization') || req.query.token;
   if (token) {
     token = token.replace('Bearer ', '');
@@ -14,3 +31,5 @@ export default function checkToken(req, res, next) {
     return next();
   }
 }
+
+module.exports = checkToken;
