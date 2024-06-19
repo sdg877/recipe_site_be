@@ -35,6 +35,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import userRoutes from './src/routes/users.js';
 import './config/database.js';
@@ -53,19 +54,21 @@ mongoose.connect(process.env.DATABASE_URL);
 // Token check middleware
 app.use(checkToken);
 
-// Serve static files from the React app
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'client/build')));
+// Serve static files from the public directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../public')));
 
 // API routes
 app.use('/api/users', userRoutes);
 
 // Catchall handler to serve index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 app.listen(port, () => {
   console.log(`Server Listening at http://localhost:${port}`);
 });
+
 
