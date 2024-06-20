@@ -28,6 +28,7 @@
 // app.listen(port, () => {
 //   console.log(`Server Listening at http://localhost:${port}`);
 // });
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -48,24 +49,28 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Token check middleware
 app.use(checkToken);
 
-// Serve static files from frontend/public directory
+// Serve static files from the React app's build folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // API routes
 app.use('/api/users', userRoutes);
 
-// Catchall handler to serve index.html for all other routes
+// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 app.listen(port, () => {
   console.log(`Server Listening at http://localhost:${port}`);
 });
+
