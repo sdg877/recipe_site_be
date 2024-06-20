@@ -28,7 +28,6 @@
 // app.listen(port, () => {
 //   console.log(`Server Listening at http://localhost:${port}`);
 // });
-
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -54,7 +53,7 @@ mongoose.connect(process.env.DATABASE_URL);
 // Token check middleware
 app.use(checkToken);
 
-// Serve static files from the public directory
+// Serve static files from frontend/public directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, '../frontend/public')));
@@ -70,6 +69,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`Server Listening at http://localhost:${port}`);
 });
-
-
-
