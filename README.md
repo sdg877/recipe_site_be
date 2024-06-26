@@ -1,10 +1,13 @@
 Description
+
 I decided to build a MERN stack recipe site using an external API. I wanted users to be able to filter, search, and save recipes. This was my first full-stack website built without any assistance.
 
 Timeframe
+
 This site took me 45 hours to build including planning and deployment. I built this site alone.
 
-Technologies used:
+Technologies used
+
 MongoDB
 Express
 React
@@ -17,12 +20,15 @@ Github Frontend Link
 Github Backend Link
 
 Brief
+
 I decided to build a MERN stack site to showcase the skills that I learned during my engineering bootcamp. This was my first solo project using an external API. I wanted the site to be user-friendly and for the user to be able to save recipes and to be able to mark whether they would make again. 
 
 Planning
+
 I made a list of all the features that I wanted to include on the site. I wanted users to be able to search and filter recipes, to be able to save recipes to their profile if they have an account, and for them to be able to mark the recipe once they had tried it. Once I had decided on the user story, I made a list of all the pages and components I would need. I chose an external API and set up an account. 
 
 Code Process
+
 I started by setting up backend and frontend environments and installing relevant dependencies. I installed Mongoose and connected my backend in my server.js file. 
 
 After I defined my user schema, I then added a checkToken.js, database.js and ensureLoggedIn.js files.
@@ -80,13 +86,16 @@ I used local storage so that users were able to save recipes to their profile on
 
 
 Challenges
+
 This was my first full stack site built without any help from instructors and using an external API. There were points when setting up authentication and using the API that I struggled. I did a lot of online research and looked at previous projects which enabled me to overcome any issues that I was facing. 
 
 Once I had deployed the site, I found that if the user refreshed the page on any page other than the homepage, they would get a 404 error saying page not found. I fixed this by adding the following page in the public folder in the frontend.
 ![Screenshot 2024-05-24 at 12 21 36](https://github.com/sdg877/recipe_site_fe/assets/149600602/5d6c9a8d-ed8c-4c51-93c1-638e45abb697)
 
 Wins
+
 That I was able to build this site from scratch and deploy it without any outside help. I thoroughly enjoyed this project.
 
 Key learnings
+
 To be patient, if something isn’t working and that everything can be resolved with proper research and practice.
