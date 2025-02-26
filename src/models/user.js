@@ -1,5 +1,5 @@
-const mongoose = require("mongoose"); 
-const bcrypt = require("bcrypt"); 
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const { Schema } = mongoose;
 const SALT_ROUNDS = 6;
@@ -38,4 +38,4 @@ userSchema.pre("save", async function (next) {
   return next();
 });
 
-module.exports = mongoose.model("User", userSchema); 
+module.exports = mongoose.model("User", userSchema);
